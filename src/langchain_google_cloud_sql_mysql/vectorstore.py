@@ -234,7 +234,9 @@ class MySQLVectorStore(VectorStore):
         self.engine._execute(query)
         return True
 
-    def apply_vector_index(self, vector_index: VectorIndex = VectorIndex()):
+    def apply_vector_index(self, vector_index: Optional[VectorIndex] = None):
+        if vector_index is None:
+            vector_index = VectorIndex()
         # Construct the default index name
         if not vector_index.name:
             vector_index.name = f"{self.table_name}_{DEFAULT_INDEX_NAME_SUFFIX}"
